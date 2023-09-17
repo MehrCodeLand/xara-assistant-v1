@@ -38,7 +38,7 @@ namespace xara_assistant_v1.Forms
                 var message = "Repassword and Password!";
                 MessageBox.Show(message);
                 Thread.Sleep(500);
-
+                 
                 UpdateForm();
             }
 

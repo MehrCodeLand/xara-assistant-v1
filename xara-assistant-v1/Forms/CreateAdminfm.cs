@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using xara_assistant_v1.Models.Helper;
 using xara_assistant_v1.Models.ViewModels;
 using xara_assistant_v1.Services.Core;
 
@@ -14,9 +15,12 @@ namespace xara_assistant_v1.Forms
 {
     public partial class CreateAdminfm : Form
     {
-        public CreateAdminfm()
+        private readonly ICore _core;
+
+        public CreateAdminfm(ICore core)
         {
             InitializeComponent();
+            _core = core;
         }
         private void UpdateForm()
         {
@@ -33,6 +37,7 @@ namespace xara_assistant_v1.Forms
                 Username = UsernameTxtBox.Text.ToString(),
             };
 
+
             if (createUser.Password != createUser.RePassword)
             {
                 var message = "Repassword and Password!";
@@ -44,6 +49,19 @@ namespace xara_assistant_v1.Forms
 
 
             // time to create user
+            var dataMessage = _core.CreateUser(createUser);
+            if(dataMessage.ErrorId < 0 )
+            {
+                MessageBox.Show(dataMessage.Message);
+                UpdateForm();
+            }
+
+
+            MessageBox.Show("Done");
+            Thread.Sleep(500);
+
+            UpdateForm();
+            this.Close();
         }
 
 

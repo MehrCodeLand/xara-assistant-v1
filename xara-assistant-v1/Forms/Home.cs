@@ -47,7 +47,7 @@ namespace xara_assistant_v1.Forms
 
         private void CreateUserBtn_Click(object sender, EventArgs e)
         {
-            var createUser = new CreateAdminfm();
+            var createUser = new CreateAdminfm( _core );
 
             createUser.ShowDialog();
         }

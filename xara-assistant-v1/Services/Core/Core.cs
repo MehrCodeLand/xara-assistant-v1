@@ -15,8 +15,38 @@ namespace xara_assistant_v1.Services.Core;
 public class Core : ICore
 {
     public User User { get; set; } = null;
-    private readonly MyDb _db;
+    private readonly MyDb _db = new MyDb() ;
 
+    public DataMessage CreateUser( CreateUserVm userVm)
+    {
+        if(IsUsernameExist(userVm.Username.ToUpper() ))
+        {
+            return new DataMessage()
+            {
+                ErrorId = -150,
+                Message = "Username is Exist ",
+            };
+        }
+
+        var message = ValidateCreateUser(userVm);
+        if (message.ErrorId < 0)
+            return message;
+
+        // time to create user
+        AddUser(new User()
+        {
+            Username = userVm.Username.ToUpper(),
+            Password = HashPasswordC.EncodePasswordMd5(userVm.Password),
+            UserId = CreateRandomNumberId.Create(),
+        });
+
+
+        return new DataMessage()
+        {
+            SuccessId = 100,
+            Message = "Done",
+        };
+    }
     public DataMessage LoginUser(LoginUserVm userVm)
     {
 
@@ -60,6 +90,66 @@ public class Core : ICore
 
 
         return true;
+    }
+    private void AddUser(User user)
+    {
+        _db.Users.Add(user);
+        Save();
+    }
+    private void Save()
+    {
+        _db.SaveChanges();
+    }
+    private DataMessage ValidateCreateUser( CreateUserVm userVm)
+    {
+        if(userVm == null)
+        {
+            return new DataMessage()
+            {
+                ErrorId = -100,
+                Message = "invalid data",
+            };
+        }else if(userVm.Username.Length < 2 || userVm.Username.Length > 25 )
+        {
+            return new DataMessage()
+            {
+                ErrorId = -110,
+                Message = "Length is not correct",
+            };
+        }else if(RegexIsString(userVm.Username))
+        {
+            return new DataMessage()
+            {
+                ErrorId = -140,
+                Message = "data type is not correct [username]",
+            };
+        }else if(userVm.Password.Length < 5 ||  userVm.Password.Length > 15)
+        {
+            return new DataMessage()
+            {
+                ErrorId = -140,
+                Message = "Password length",
+            };
+        }else if(userVm.Password != userVm.RePassword)
+        {
+            return new DataMessage()
+            {
+                ErrorId = -200,
+                Message = "Password and RePassword",
+            };
+        }
+
+
+
+        return new DataMessage()
+        {
+            SuccessId = 100,
+            Message = "done",
+        };
+    }
+    private bool IsUsernameExist( string username)
+    {
+        return _db.Users.Any(x => x.Username == username.ToUpper() );
     }
     private DataMessage ValidateLoginUserInput(LoginUserVm userVm)
     {

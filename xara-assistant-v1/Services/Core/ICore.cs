@@ -9,6 +9,7 @@ namespace xara_assistant_v1.Services.Core
         User User { get; set; }
 
         DataMessage LoginUser(LoginUserVm userVm);
+        DataMessage CreateUser(CreateUserVm userVm);
         bool IsUserLogin();
     }
 }

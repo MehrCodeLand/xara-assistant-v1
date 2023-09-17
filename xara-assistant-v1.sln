@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xara-assistant-v1", "xara-assistant-v1\xara-assistant-v1.csproj", "{553E353B-EA6F-497D-A008-F2CC89841735}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{553E353B-EA6F-497D-A008-F2CC89841735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553E353B-EA6F-497D-A008-F2CC89841735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553E353B-EA6F-497D-A008-F2CC89841735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553E353B-EA6F-497D-A008-F2CC89841735}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4FDC4FE-F19A-4593-A31D-B1EBB1BBEAEF}
+	EndGlobalSection
+EndGlobal
